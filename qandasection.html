@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question&AnswerSection</title>
+    <style>
+        *{
+            margin:0px;
+            padding:0px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            box-sizing:border-box;
+        }
+
+        h1{
+            text-align: center;
+            padding:30px 0px;
+        }
+        .main{
+            max-width:1000px ;
+            margin: auto;
+        }
+        .faq-items{
+            border:1px solid #ccc;
+            margin-bottom:30px;
+        }
+        .faq-items h3{
+            padding:15px;
+            background-color: yellowgreen;
+            position: relative;
+            cursor:pointer;
+        }
+       .faq-items h3 span{
+        position:absolute;
+        right:10px;
+       } 
+       .faq-items p{
+        font-size:18px;
+        line-height: 10px;
+        padding: 10px;
+        display:none;
+       }
+
+       .showAns{
+        display:block !important;
+       }
+    </style>
+</head>
+<body>
+    <h1>Freuently Asked Questions</h1>
+    <div class="main">
+           <div class="faq-items">
+            <h3>1)Question? <span>+</span></h3>
+            <p>->Answer</p>
+           </div>
+
+         <div class="faq-items">
+            <h3>2)Question?<span>+</span></h3>
+            <p>->Answer</p>
+           </div>
+
+          <div class="faq-items">
+            <h3>3)Question?<span>+</span></h3>
+            <p>->Answer</p>
+           </div>
+
+          <div class="faq-items">
+            <h3>4)Question?<span>+</span></h3>
+            <p>->Answer</p>
+           </div>    
+    </div>
+    
+    <script>
+
+        let allQuestions = document.querySelectorAll("h3");
+        console.log(allQuestions);
+
+        allQuestions.forEach((items,index)=>{
+
+        
+           items.addEventListener("click",()=>{
+
+            
+            allQuestions.forEach((heading,i)=>{
+                if(index!=i){
+                      heading.lastElementChild.innerHTML="+";
+                    heading.nextElementSibling.classList.remove('showAns');
+                }
+            })
+            if(items.lastElementChild.innerHTML=="+"){
+                items.lastElementChild.innerHTML="-";
+            }
+            else{
+                items.lastElementChild.innerHTML="+";
+            }
+            items.nextElementSibling.classList.toggle('showAns');
+           })
+        })
+    </script>
+</body>
+</html>
