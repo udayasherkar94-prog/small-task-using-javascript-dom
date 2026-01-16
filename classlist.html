@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>classlist</title>
+
+    <style>
+        *{
+            margin:0;
+            
+            box-sizing: border-box;
+        }
+
+        html,body{
+            background-color: rgb(85, 27, 85);
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: larger;
+
+        }
+      
+        .container{
+            display: flex; 
+            justify-content: center;
+            align-items: center;
+    
+            background-color: white;
+
+        }
+        button{
+            margin: 5px;
+            padding: 5px;
+            height: 55px;
+            width: 65px;
+            color: white;
+            background-color: rgb(40, 40, 230);
+        }
+
+        .active-para{
+            padding: 30px;
+            word-spacing: 4px;
+            font-family: serif;
+            background-color: rgb(92, 245, 92);
+            color: rgb(196, 71, 13);
+        }
+    </style>
+</head>
+<body>
+ 
+    <div id="main">
+
+    <button id="css">CSS</button>
+    <button id="add-css">add class</button>
+    <button id="rem-css">remove class</button>
+    <button id="toggle">toggle class</button>
+    </div>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore voluptates optio libero deserunt nemo vitae odio sed et, temporibus aperiam corrupti. Itaque laboriosam laborum dicta commodi eligendi quisquam, error esse?</p>
+
+    <script>
+        let btn1 = document.querySelector("#css");
+        console.log(btn1);
+
+        let div = document.querySelector("#main");
+        
+
+        btn1.addEventListener("click",()=>{
+            div.classList.add("container");
+          
+        })
+        let para = document.querySelector('p');
+        console.log(para);
+        
+        btn1.addEventListener("click",()=>{
+            para.style.color="white";
+            para.style.backgroundColor='black';
+        })
+
+        btn2 = document.querySelector("#add-css");
+        console.log(btn2);
+
+        btn2.addEventListener("click",()=>{
+            
+          para.classList.add("active-para");
+
+        })
+        
+        btn3 = document.querySelector("#rem-css");
+        btn3.addEventListener("click",()=>{
+            para.classList.remove("active-para");
+             div.classList.remove("container");
+        })
+
+        btn4 = document.querySelector("#toggle");
+        btn4.addEventListener("click",()=>{
+            para.classList.toggle("active-para")
+        })
+
+    </script>
+  
+</body>
+</html>
