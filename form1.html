@@ -1,0 +1,79 @@
+<!-- HTML (attribute – initial state)
+<input value="Uday">
+
+JavaScript (property – live state)
+input.value  // changes as user types
+
+Think like this:  Attribute = default  Property = current -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form1</title>
+</head>
+<body>
+    <h3>form validation </h3>
+    <p>using name attribute</p>
+    <form name="myform" onsubmit="return validation()">
+        <label for="username">Username</label>
+        <input type="text" name="username" placeholder="enter username"> 
+        <label for="password">password</label>
+        <input type="password" name="password"  placeholder="enter password"> 
+
+        <input type="submit" >
+        
+    </form>
+
+
+    <script>
+
+        function validation(){
+        
+            var name =document.myform.username.value;//document.name="".name=" ".value
+            var pass = document.myform.password.value;
+
+            if(name===null || name===""){
+                alert("name can't be blank")
+                return false
+            }
+            else if(pass.length<5){
+                alert("password must be 6 character long")
+                return false
+            }
+
+            console.log(name)
+            console.log(pass)
+
+            document.write("form sumit successfully")
+
+        }
+    </script>
+</body>
+</html>
+
+
+<!--
+🔴 For backend submission:
+✔ name → REQUIRED
+❌ value → optional (unless default needed)
+
+🔵 For JavaScript:
+✔ value → REQUIRED
+❌ name → optional (JS can still read value) 
+ -->
+
+ 
+          <!-- 🧩 Where does value fit now?
+        <input name="username" value="Uday">
+         On submit:
+         name → "username" (key)
+         value → "Uday" (data) -->
+
+
+        <!-- for backend json file convert it
+        {
+          username:"Uday"
+        } 
+        -->
