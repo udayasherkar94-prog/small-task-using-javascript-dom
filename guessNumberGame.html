@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess a Number</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html,body{
+      font-family: Arial, Helvetica, sans-serif;
+      background:#BCD9A2;
+      color: white;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .wrapper{
+        min-height: 80%;
+        min-width: 80%;
+        background-color: #6D9E51;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        border: 2px solid white;
+         box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.9);
+    }
+
+
+   .header{
+     display: flex;
+     flex-direction: column;
+     gap: 10px;
+     font-size: 15px;
+     padding: 5px;
+     flex-wrap: wrap;
+     align-items: center;
+     justify-content: center;
+     color: #A82323;
+     border-radius: 8px;
+     border: 2px solid white;
+     background-color: #BCD9A2;
+   }
+
+   .form{
+      background-color: #A82323;
+      height: 200px;
+      width: 400px;
+     display: flex;
+     flex-direction: column;
+     font-size: 25px;
+     padding: 5px;
+     flex-wrap: wrap;
+     align-items: center;
+     justify-content: center;
+       border-radius: 8px;
+     border: 2px solid white;
+   }
+
+   #guessfield{
+     height:40px;
+     width: 100px;
+   }
+   #subt{
+    height: 25px;
+    width: 90px;
+      border-radius: 8px;border-radius: 8px;
+   }
+
+   .resultParas{
+    display: flex;
+    flex-direction: column;
+    font-size: 25px;
+    padding: 10px 10px 30px 30px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: 2px solid rgb(236, 223, 38);
+   }
+
+</style>
+<body>
+    <div class="wrapper">
+      <div class="header">
+        <h1>Number Guessing Game</h1>
+        <p>Try and guess a random number between 1 and 100</p>
+        <p>You have 10 attempts to guess the right number</p>
+
+      </div>
+        <form class="form">
+          <label for="guessfield" id="guess"> Guess a number</label>
+          <br>
+          <input type="text" id="guessfield" class="guessfield">
+          <br>
+          <input type="submit" id="subt" value="Submit guess" class="guessSubmit">
+        
+        </form>
+
+        <div class="resultParas">
+            <p>Previous Guesses: <span class="guesses"></span></p>
+            <p> Guesses Remaining: <span class="lastResult">10</span></p>
+             <p class="lowhigh"></p>
+        </div>
+    </div>
+
+
+    <script>
+
+        let randno = parseInt(Math.random()*100+1);
+
+        const submit = document.getElementById('subt');
+        const userinput = document.getElementById('guessfield');
+        
+        //output
+        const guesses = document.querySelector('.guesses');
+        const result = document.querySelector('.lastResult');
+        const loworhigh = document.querySelector('.lowhigh');
+
+        const startover = document.querySelector('.resultParas');
+
+        const p = document.createElement('p');
+
+
+        let prevguess = [];
+        let numguesses = 1;
+
+        let playgame = true;
+
+
+        if(playgame){
+          
+            submit.addEventListener('click',function(e){
+                e.preventDefault();
+
+             const guess = parseInt(userinput.value);
+             validateGuess(guess);
+            });
+        }
+
+
+        function validateGuess(guess){
+          
+            if(isNaN(guess)){
+                alert('please enter a valid number')
+            }
+            else if(guess <=0){
+               alert('please enter a valid number')
+            }
+            else if(guess>100){
+                  alert('please enter number between 0 to 100 ')
+            }
+            else{
+                prevguess.push(guess);
+
+                if(numguesses === 9){
+                    displayGuess(guess);
+                    displayMessage(` Game Over, random number was ${randno}`);
+                    endGame();
+                }
+                else{
+                    displayGuess(guess);
+                    checkGuess(guess);
+
+                }
+            }
+        }
+
+        function checkGuess(guess){
+
+            if(guess === randno){
+                displayMessage(`You win ,you guessed it right `);
+                endGame();
+            }
+            else if(guess < randno){
+                displayMessage(`Number is too low `)
+            }
+            else if(guess > randno){
+                displayMessage(`Number is too high`)
+            }
+
+        }
+
+
+        function displayGuess(guess){
+
+            //cleanup user value
+
+            userinput.value = "";
+            guesses.innerHTML += `${guess} , `;
+            numguesses++;
+            result.innerHTML = `${10-numguesses}`;
+
+        }
+
+        function displayMessage(message){
+          
+            loworhigh.innerHTML = `<h3>${message}</h3> `
+        }
+
+        function endGame(){
+            userinput.value = '';
+            userinput.setAttribute('disabled','')
+            p.classList.add('button');
+            p.innerHTML = `<h2 id="newGame">Start new Game  </h2>`
+            startover.appendChild(p);
+            playgame = false;
+            newGame();
+        }
+        
+        
+        function newGame(){
+          
+          const newGame= document.querySelector('#newGame');
+          newGame.addEventListener('click',function(e){
+            
+            randno = parseInt(Math.random()*100+1);
+            prevguess = [];
+            numguesses = 1;
+            guesses.innerHTML = '';
+            result.innerHTML = `${11-numguesses} `;
+            userinput.removeAttribute('disabled');
+            loworhigh.innerHTML = ''
+            startover.removeChild(p);
+            playgame = true;
+
+          })
+        }
+
+
+    </script>
+</body>
+</html>
